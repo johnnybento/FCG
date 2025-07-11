@@ -13,6 +13,7 @@
 
 
 
+
 Uma plataforma de venda de jogos digitais e gestão de servidores para partidas online, construída com .NET 8 seguindo princípios de Domain‑Driven Design (DDD) e Clean Architecture.
 
 ---
