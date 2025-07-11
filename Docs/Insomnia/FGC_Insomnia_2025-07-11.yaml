@@ -1,0 +1,567 @@
+type: collection.insomnia.rest/5.0
+name: FCG
+meta:
+  id: wrk_2c42a18b7ce34264a06666c71ce2ebe4
+  created: 1752160824724
+  modified: 1752255508463
+  description: ""
+collection:
+  - name: USERS
+    meta:
+      id: fld_2af235da57a549bd9c2052499886b9ea
+      created: 1752162280514
+      modified: 1752196291987
+      sortKey: -1752162280514
+      description: ""
+    children:
+      - url: "{{ _['Base Environment'].host }}/api/usuarios"
+        name: Cadastro usuário
+        meta:
+          id: req_a60c9b928b6f456bad4f3150d37107d1
+          created: 1752162295347
+          modified: 1752250141680
+          isPrivate: false
+          description: ""
+          sortKey: -1752162295347
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "João Teste8",
+              "email": "joao.teste8@fgc.com",
+              "senha": "Fgc@123!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_316cc28e11ad43eaafe07feff664fb76
+        scripts:
+          afterResponse: |-
+            module.exports.responseHooks = [          
+              async (context) => {               
+                const data = await context.response.getJson();                
+                await context.store.setItem('userId', data.userId);
+              }
+            ];
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/usuarios/{{ _['Base
+          Environment'].userId }}"
+        name: Pegar usuário por Id
+        meta:
+          id: req_eed9959507394658ba935d0a9af08762
+          created: 1752163658677
+          modified: 1752166135149
+          isPrivate: false
+          description: ""
+          sortKey: -1752163658677
+        method: GET
+        headers:
+          - id: pair_80e67f23b1ff46fc801ae462ee92c9d3
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ _['Base Environment'].tokenAdmin }}"
+          prefix: Bearer
+        scripts:
+          afterResponse: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/usuarios/{{ _['Base
+          Environment'].userId }}/biblioteca"
+        name: Listar biblioteca usuário
+        meta:
+          id: req_5ccb5ff147ad4a8ab692f7a11acccb20
+          created: 1752171762102
+          modified: 1752174536489
+          isPrivate: false
+          description: ""
+          sortKey: -1752163658777
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_00a9ea72a08749de9fdcf4100220510f
+          - id: pair_bfe1d096969747649d78e0d3e833f855
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenUser }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Bearer
+          token: "{{ _['Base Environment'].tokenUser }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/usuarios/{{ _['Base
+          Environment'].userId }}/senha"
+        name: Alterar senha do usuário
+        meta:
+          id: req_4653a7abab154a00b7e4dbfa7da5a180
+          created: 1752250055994
+          modified: 1752251414282
+          isPrivate: false
+          description: ""
+          sortKey: -1752250055994
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "usuarioId": "{{ _['Base Environment'].userId }}",
+              "senhaAtual": "Fgc@123!",
+              "novaSenha": "Fgc@321!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_40b2761678d34d0498164a0f3da9e0a5
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_7c0c4596451843e096159c5c342bc49c
+          - id: pair_3db3f342fbea4ef1912bd703f64d1763
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenUser }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Bearer Token
+          token: "{{ _['Base Environment'].userIdAdmin }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host
+          }}/api/usuarios/4E1EEC6D-4DDD-4B1F-B7C6-B15A9A2B6751"
+        name: Deletar usuário
+        meta:
+          id: req_ba17af988bd340bfac964759a45ec2d2
+          created: 1752251085550
+          modified: 1752252866925
+          isPrivate: false
+          description: ""
+          sortKey: -1752251085550
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_793dcb4225284084b521fb34160d9138
+          - id: pair_29fb0d134e514dc4aab1838ba436a197
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Bearer
+          token: "{{ _['Base Environment'].tokenAdmin }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/usuarios/"
+        name: Listar usuários
+        meta:
+          id: req_c479662c964e445cacb5ac16e2ed3dd5
+          created: 1752252810490
+          modified: 1752252976280
+          isPrivate: false
+          description: ""
+          sortKey: -1752252810490
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_544c4f441be440a091577cda84872437
+          - id: pair_1287e58d9a224eb0bacffec0257fd87f
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Bearer
+          token: "{{ _['Base Environment'].tokenAdmin }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: AUTH
+    meta:
+      id: fld_4cbf093f6b9a4337950523140c9b93b5
+      created: 1752163319727
+      modified: 1752251237293
+      sortKey: -1752162280526.5
+      description: ""
+    children:
+      - url: "{{ _['Base Environment'].host }}/api/auth/login"
+        name: Login Usuario
+        meta:
+          id: req_cd5d068d38184902a32ad11115791b54
+          created: 1752163363022
+          modified: 1752250836588
+          isPrivate: false
+          description: ""
+          sortKey: -1752163363022
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "joao.teste@fgc.com",
+              "senha": "Fgc@123!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_631a680f41da4994ab4cfd92c39ac466
+        scripts:
+          afterResponse: |-
+            module.exports.responseHooks = [
+              async (context) => {                
+                const data = await context.response.getJson();
+                await context.store.setItem('token', data.token);
+              }
+            ];
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/auth/login"
+        name: Login Administrador
+        meta:
+          id: req_0ece3813e796463a9960d9165df356f5
+          created: 1752163483150
+          modified: 1752163617263
+          isPrivate: false
+          description: ""
+          sortKey: -1752163483150
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "johnny.olinda@fgc.com",
+              "senha": "Senha@123!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        scripts:
+          afterResponse: |-
+            module.exports.responseHooks = [
+              async (context) => {
+                const data = await context.response.getJson();
+                await context.store.setItem('token', data.token);
+              }
+            ];
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: CATALOG
+    meta:
+      id: fld_36d178b2c9e7488fb303e743d4aa40ca
+      created: 1752165909839
+      modified: 1752167335008
+      sortKey: -1752165909839
+      description: ""
+    children:
+      - url: "{{ _['Base Environment'].host }}/api/jogos"
+        name: Cadastro do Jogo Admin
+        meta:
+          id: req_f0d31e9bf111412a927f59db0a404063
+          created: 1752165915400
+          modified: 1752167361036
+          isPrivate: false
+          description: ""
+          sortKey: -1752165915400
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "titulo": "HalfLife",
+              "descricao": "Jogo de FPS",
+              "preco": 49.90
+            }
+        headers:
+          - id: pair_8d546ff720bd4954b4f0987d7b75864e
+            name: Content-Type
+            value: application/json
+            description: ""
+            disabled: false
+          - id: pair_cf38b560f11e40b7bc3e983e687c6b5b
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Bearer
+          token: "{{ _['Base Environment'].tokenAdmin }}"
+        scripts:
+          afterResponse: |-
+            module.exports.responseHooks = [
+               async (context) => {
+                const data = await context.response.getJson();
+                await context.store.setItem('jogoId', data.jogoId);
+              }
+            ];
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/jogos"
+        name: Cadastro do Jogo Usuario
+        meta:
+          id: req_ecb07f0dc3404cc696c5ea56de8a8053
+          created: 1752170649015
+          modified: 1752170773750
+          isPrivate: false
+          description: ""
+          sortKey: -1752170649015
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "titulo": "Cod",
+              "descricao": "Jogo de FPS",
+              "preco": 49.90
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_78fce08ebca84fc993c2613e700727f6
+          - id: pair_f3311beadd254e28bced1960fdccb05a
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenUser }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ _['Base Environment'].tokenUser }}"
+          prefix: Bearer
+        scripts:
+          afterResponse: |-
+            module.exports.responseHooks = [
+              async (context) => {
+                const data = await context.response.getJson();
+                await context.store.setItem('jogoId', data.jogoId);
+              }
+            ];
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/jogos"
+        name: Listar Jogos
+        meta:
+          id: req_c6f87aaf3cb743d8b8b17764a6a9432c
+          created: 1752170781722
+          modified: 1752171169506
+          isPrivate: false
+          description: ""
+          sortKey: -1752170781722
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_95e1b0d518ce4860a97d182ae755d46d
+          - id: pair_0d19dffd94e64dd8b8e3b4018e2ea229
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ _['Base Environment'].tokenAdmin }}"
+          prefix: Bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/promocoes"
+        name: Cadastro de Promoção
+        meta:
+          id: req_e999a1485c494fb99c9615d03709f2ca
+          created: 1752170973754
+          modified: 1752171167055
+          isPrivate: false
+          description: ""
+          sortKey: -1752170973754
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "jogoId": "{{ _['Base Environment'].jogoId }}",
+              "desconto": 0.20,
+              "inicio": "2025-07-01T00:00:00Z",
+              "termino": "2025-07-15T23:59:59Z"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_7eab1381f1234a8abb2db91d207da37b
+          - id: pair_4184f45cd5f3486387cb4c13f7c06a8c
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Bearer
+          token: "{{ _['Base Environment'].tokenAdmin }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _['Base Environment'].host }}/api/jogos/{{ _['Base Environment'].jogoId
+          }}/promocoes"
+        name: Listar Promoções
+        meta:
+          id: req_d6f3a50e6f9c4e3f92b9c355d785e59c
+          created: 1752171255375
+          modified: 1752171450300
+          isPrivate: false
+          description: ""
+          sortKey: -1752171255375
+        method: GET
+        headers:
+          - id: pair_a7e37c71fb4b4ba2ab75310e9fe931da
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenAdmin }}
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: SALES
+    meta:
+      id: fld_b025fd01700540369b24cab683e7efa8
+      created: 1752171535270
+      modified: 1752171535270
+      sortKey: -1752171535270
+      description: ""
+    children:
+      - url: "{{ _['Base Environment'].host }}/api/sales/{{ _['Base Environment'].userId
+          }}/comprar/{{ _['Base Environment'].jogoId }}"
+        name: Comprar Jogo
+        meta:
+          id: req_b00e2d9a859b4510815af0d4d2da3a12
+          created: 1752171547765
+          modified: 1752174501778
+          isPrivate: false
+          description: ""
+          sortKey: -1752171547765
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_7d1e7675c25541e288ddb9f164c202ca
+          - id: pair_e9960661501b49dbb6c8c6cb1abf3046
+            name: Authorization
+            value: Bearer {{ _['Base Environment'].tokenUser }}
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          prefix: Berarer
+          token: "{{ _['Base Environment'].tokenUser }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_bd544db32e34649d26613720afee57bf929b946c
+    created: 1752160824770
+    modified: 1752251237286
+environments:
+  name: Base Environment
+  meta:
+    id: env_bd544db32e34649d26613720afee57bf929b946c
+    created: 1752160824761
+    modified: 1752251251508
+    isPrivate: false
+  data:
+    Base Environment:
+      host: https://localhost:7027
+      tokenUser: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhYmJlNi0xMzVmLTQ3ZjMtODNiMi02MTMxZjRmODE5ZGUiLCJlbWFpbCI6ImpvYW8udGVzdGVAZmdjLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzdWFyaW8iLCJqdGkiOiJiOTE0MzgxOC1hNWZkLTQ1MDAtYWVlNC1iYWVlMjU2Nzk4MDIiLCJuYmYiOjE3NTIyNTAyODEsImV4cCI6MTc1MjI1NzQ4MSwiaXNzIjoiRkNHLUF1dGgtU2VydmVyIiwiYXVkIjoiRkNHLUNsaWVudHMifQ.6l_WN3ycpei2ZLw_McYvPii6AjOIe_NmphGG9s3zYXo
+      userId: f40abbe6-135f-47f3-83b2-6131f4f819de
+      jogoId: fd7bd8e8-11e0-43a4-90cf-2d605bb6fac7
+      tokenAdmin: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTg1NGQzZS04MzdmLTQyZTktOWFmYS1hODYzY2Q0OTk0YWMiLCJlbWFpbCI6ImpvaG5ueS5vbGluZGFAZmdjLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluaXN0cmFkb3IiLCJqdGkiOiI0YjA4ZmNkYS1lOTcyLTQ0ZjktOWYzNy00ZWYzY2RhMjI3NmUiLCJuYmYiOjE3NTIyNTEyMzcsImV4cCI6MTc1MjI1ODQzNywiaXNzIjoiRkNHLUF1dGgtU2VydmVyIiwiYXVkIjoiRkNHLUNsaWVudHMifQ.7HsgPLfc560dCDR-gJeAYwhy8jaVy7X_ZacYeID4f5g
+      userIdAdmin: 15854d3e-837f-42e9-9afa-a863cd4994ac

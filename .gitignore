@@ -1,0 +1,89 @@
+# ====================
+# Build results
+# ====================
+[Bb]in/
+[Oo]bj/
+artifacts/
+publish/
+
+# ====================
+# Visual Studio
+# ====================
+.vs/
+*.suo
+*.user
+*.userprefs
+*.csproj.user
+*.sln.docstates
+
+# ====================
+# Rider
+# ====================
+.idea/
+
+# ====================
+# DotNet Core
+# ====================
+project.lock.json
+project.fragment.lock.json
+*.dotCover
+*.nunit*
+*.coverage
+TestResults/
+
+# ====================
+# NuGet
+# ====================
+# Packages folder (you can exclude this if you restore on build)
+packages/
+# Windows Azure build output
+csx/
+*.build.csdef
+
+# ====================
+# EF Core Migrations
+# ====================
+Migrations/
+# Se você quiser verificar migrations, remova a linha acima
+
+# ====================
+# User-specific files
+# ====================
+*.env            # variáveis de ambiente locais
+*.local          # configurações locais
+*.vspscc         # source control bindings
+
+# ====================
+# Logs
+# ====================
+*.log
+logs/
+
+# ====================
+# OS files
+# ====================
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ====================
+# Resharper
+# ====================
+_ReSharper*/
+*.ReSharper
+*.DotSettings.user
+
+# ====================
+# Azure Pipelines
+# ====================
+.vscode/
+
+# ====================
+# Optional: Coverlet code coverage
+# ====================
+coverage*.json
+coverage*.xml
+coverage*.info
